@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragmentos/fragmentos-layout :: cabecalho">
+   <title>Cadastro Produto</title>
+</head>
+
+<body>
+
+	<header th:replace="fragmentos/fragmentos-layout :: barra-navegacao"></header>
+
+    <main class="container">
+        <p></p>
+		
+		<div th:replace="fragmentos/fragmentos-mensagens :: mensagem-sucesso"></div>
+
+        <h2>Cadastro de Produto</h2>
+
+		<form th:action="@{/produto/salva}" method="POST" th:object="${produto}">
+			
+		  <div th:replace="fragmentos/fragmentos-mensagens :: mensagem-erro"></div>
+		  			
+		  <input type="hidden"  th:field="*{id}"/>		
+		  	
+		  <div class="row">	
+			  <div class=" col-sm-2 form-group" th:classappend="${#fields.hasErrors('sku')} ? has-danger">
+			    <label for="sku" class="form-control-label">SKU</label> 
+			    <input type="text" id="sku" th:field="${produto.sku}" class="form-control" > 
+			  </div>	
+			  	
+			  <div class=" col-sm-10 form-group" th:classappend="${#fields.hasErrors('nome')} ? has-danger">
+			    <label for="nome" class="form-control-label">Nome</label> 
+			    <input type="text" id="nome" th:field="${produto.nome}" class="form-control" > 
+			  </div>
+		  </div>
+		  
+		  <div class="form-group" th:classappend="${#fields.hasErrors('preco')} ? has-danger">
+		    <label for="preco" class="form-control-label" >Preço</label> 
+		    <input type="text" id="preco" th:field="*{preco}" class="form-control moeda-js"> 
+		  </div>
+		  
+		  <div class="form-group">
+		    <label for="descricao"></label>
+		    <textarea id="descricao" th:field="*{descricao}" rows="6" 
+		              class="form-control"></textarea>
+          </div>
+
+
+		<div class="form-group"
+			th:classappend="${#fields.hasErrors('dataValidade')} ? has-danger">
+
+			<label for="dataValidade" class="form-control-label">Data Validade</label> <input
+				type="text" id="dataValidade" th:field="${produto.dataValidade}"
+				class="form-control">
+
+		</div>
+        
+        <div class="row">	
+			<div class="col-sm-4 form-group">
+            
+	            <label for="selectFornecedor">Fornecedor</label>
+	            
+	            <div style="display: flex">
+				
+					<select id="selectFornecedor" class="custom-select" th:field="*{fornecedor}" >
+					  <option disabled="disabled" value="">Selecione um fornecedor</option>
+					  
+					  <option th:each="fornecedor : ${fornecedores}" 
+					          th:value="${fornecedor.id}"
+					          th:text="${fornecedor.nome}"></option>
+					</select>
+					<div style="margin-left: 0.5em">
+					  <a href="#" data-toggle="modal" data-target="#modal-cadastro-fornecedor">
+						<i class="fa fa-plus-square fa-2x" aria-hidden="true"></i>
+					  </a>
+					</div>
+				</div>	
+            </div>
+        </div>
+		<button type="submit" class="btn btn-primary">Salvar</button>
+
+		</form>
+		
+		<div th:replace="fragmentos/modal/cadastro-fornecedor :: modal-fornecedor"></div>
+</main>
+
+ <th:block th:replace="fragmentos/fragmentos-scripts :: bootstrap" ></th:block> 
+ 
+ <script th:src="@{/js/fornecedor-cadastro-ajax.js}"></script>
+ <script th:src="@{/js/jquery.maskMoney.min.js}"></script>
+ 
+ <script>
+ $(".moeda-js").maskMoney(
+		         { prefix:'R$ ', 
+		        	allowNegative: true, 
+		        	thousands:'.', decimal:',', 
+		        	affixesStay: false
+                });
+ </script>
+</body>
+</html>

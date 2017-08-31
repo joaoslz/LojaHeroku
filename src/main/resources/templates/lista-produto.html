@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head th:replace="fragmentos/fragmentos-layout :: cabecalho">
+  <title>Listagem de Produtos</title>
+</head>
+<body>
+
+  <header th:replace="fragmentos/fragmentos-layout :: barra-navegacao"></header>
+
+<main class="container">
+   <p></p>
+
+  <table class="table table-striped">
+  <thead>
+    <tr>
+
+      <th>SKU</th>
+      <th>Nome</th>
+      <th>Preço</th>
+      <th>Descrição</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr th:each="produto : ${produtos}">
+      <td th:text="${produto.sku}"></td>
+      <td th:text="${produto.nome}"></td>
+      <td th:text="${produto.preco}"></td>
+      <td th:text="${produto.descricao}"></td>
+      <th><a th:href="@{/produto/edicao/{id}(id=${produto.id})}" class="btn btn-info btn-sm">Editar</a> </th>
+    </tr>
+  
+  </tbody>
+</table>
+
+
+
+</main>
+
+ <th:block th:replace="fragmentos/fragmentos-scripts :: bootstrap"></th:block> 
+
+</body>
+</html>

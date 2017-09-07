@@ -13,10 +13,10 @@ $( function() {
 	
 	modal.on('hide.bs.modal', function(e) {
 		inputNome.val('');
-/*		alertErro = form.find('.msg-modal-cadastro-fornecedor-js')
+		alertErro = form.find('.msg-modal-cadastro-fornecedor-js')
 		form.find('.msg-modal-cadastro-fornecedor-js').addClass('d-none');
 		form.find('.form-group, .nome-js').removeClass('has-danger');
-*/	});
+	});
 
 
 	form.submit( function(event) {
@@ -25,6 +25,7 @@ $( function() {
 	
 	
 	var botaoSalvar = modal.find('.btn-cadastro-fornecedor-modal-js');
+	
 	botaoSalvar.click(function() {
 		
 		var nomeFornecedor = inputNome.val().trim();

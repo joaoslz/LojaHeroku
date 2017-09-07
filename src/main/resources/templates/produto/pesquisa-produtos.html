@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head th:replace="fragmentos/fragmentos-layout :: cabecalho">
+<title>Pesquisa de Produtos</title>
+</head>
+<body>
+
+ <header th:replace="fragmentos/fragmentos-layout :: barra-navegacao"></header>
+ 
+ <main class="container">
+
+	<div class="card mt-5" >
+       <div class="card-header">
+          Filtro para pesquisa de Produtos
+       </div>
+       <div class="card-body p-4">
+
+		<form method="GET" th:object="${produtoFilter}" >
+			<div class="row">
+				<div class="form-group  col-sm-2">
+					<label class="control-label" for="sku">SKU</label> 
+					<input type="text" class="form-control" id="sku" autofocus="autofocus" th:field="*{sku}">
+				</div>
+
+				<div class="form-group  col-sm-7">
+					<label class="control-label" for="nome">Nome</label> 
+					<input type="text" class="form-control" id="nome" th:field="*{nome}">
+				</div>
+
+				<div class="form-group  col-sm-3">
+					<label class="control-label" for="fornecedor">Fornecedor</label> 
+					<select
+						id="fornecedor" class="form-control" th:field="*{fornecedor}">
+						<option value="">Todos os fornecedores</option>
+						<option th:each="fornecedor : ${fornecedores}"
+							th:text="${fornecedor.nome}" th:value="${fornecedor.id}">
+						</option>
+					</select>
+				</div>
+			</div>
+
+
+	<div class="row">
+		<div class="col-sm-6 form-group">
+			<label>Origem</label>
+			<div>
+
+				<th:block th:each="origem : ${origens}">
+					<label class="custom-control custom-radio"> 
+					  <input th:id="${origem}" type="radio" th:value="${origem}" th:field="${produtoFilter.origem}" class="custom-control-input"> 
+					  <span class="custom-control-indicator"></span> 
+					  <span	class="custom-control-description" th:text="${origem.descricao}"></span>
+					</label>
+				</th:block>
+
+					<label class="custom-control custom-radio"> 
+					    <input id="todasOrigens" type="radio" th:checked="${produtoFilter.origem} == null" name="origem" class="custom-control-input"> 
+						<span class="custom-control-indicator"></span> 
+						<span class="custom-control-description">Todos</span>
+					</label>
+			</div>
+		</div>
+
+		<div class="col-sm-6  form-group">
+			<label for="precoDe">Preço</label>
+			<div class="form-inline">
+				<input type="text" class="form-control  moeda-js" id="precoDe" th:field="${produtoFilter.precoDe}"> 
+				<label for="precoAte" class="aw-form-label-between ml-2">até</label> 
+				<input type="text" class="form-control  moeda-js ml-2" id="precoAte" th:field="${produtoFilter.precoAte}">
+			</div>
+		</div>
+	</div>
+	<!-- row -->
+	<button type="submit" class="btn btn-outline-primary">Pesquisar</button>
+	</form>
+  </div>
+  </div>
+
+  <div class="row mt-5">
+
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>Imagem</th>
+					<th>SKU</th>
+					<th>Nome</th>
+					<th>Preço</th>
+					<th>Descrição</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+
+				<tr th:each="produto : ${produtos}">
+					<td class="text-center"><img
+						th:if="${produto.temImagem()==true}"
+						data-th-src="@{|/${produto.detalhesImagem.urlImagem}|}"
+						alt="Foto do Livro" height="50px"> <img
+						th:if="${produto.temImagem()==false}"
+						data-th-src="@{/img/imagem-nao-disponivel.jpg}"
+						alt="Foto do Livro" height="50px"></td>
+					<td th:text="${produto.sku}"></td>
+					<td th:text="${produto.nome}"></td>
+					<td th:text="${produto.preco}"></td>
+					<td th:text="${produto.descricao}"></td>
+					<td><a th:href="@{/produto/edicao/{id}(id=${produto.id})}"
+						class="btn btn-outline-info btn-sm">Editar</a></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	</main>
+
+	<th:block th:replace="fragmentos/fragmentos-scripts :: bootstrap"></th:block>
+
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragmentos/fragmentos-layout :: cabecalho">
+   <title>Cadastro Categoria</title>
+</head>
+
+<body>
+	<header th:replace="fragmentos/fragmentos-layout :: barra-navegacao"></header>
+
+    <section class="container mt-5">
+      <div th:replace="fragmentos/fragmentos-mensagens :: mensagem-sucesso"></div>
+    
+    
+      <div class="row no-gutters justify-content-md-left">
+    
+    		<form class="form-inline" th:action="@{/categorias}" method="POST" th:object="${categoria}">
+		
+		    <input type="hidden" th:field="*{id}" />
+			
+			<div class="form-group ">
+				<label for="nome" class="pr-2">Categoria</label> 
+				<input type="text" class="mr-2 form-control" id="nome" th:field="*{nome}" 
+				       placeholder="Nome da Categoria" autofocus="autofocus" >
+			</div>
+			
+			<button type="submit" class="btn btn-outline-success">Salvar</button>
+			<button type="reset"  class="ml-2 btn btn-outline-warning">Cancelar</button>
+		</form>
+	  </div>
+	  
+	  
+	  <div class="row justify-content-md-left mt-5">
+			
+			<div class="col-8">
+				<table class="table table-hover">
+					<thead>
+						<tr>
+							<th>#ID</th>
+							<th>Nome</th>
+							<th>Ações</th>
+						</tr>
+					</thead>
+					<tr th:each="categoria2 : ${categorias}">
+						<td><span th:text="${categoria2.id}"></span></td>
+						<td><span th:text="${categoria2.nome}"></span></td>
+						<td><a th:href="@{/categorias/edicao/{id}(id=${categoria2.id})}" class="btn btn-outline-info btn-sm">Editar</a> </td>
+						
+					</tr>
+	
+				</table>
+			</div>
+		</div>
+
+	</section>
+
+    <th:block th:replace="fragmentos/fragmentos-scripts :: bootstrap" ></th:block> 
+
+</body>
+</html>

@@ -5,15 +5,16 @@
 </head>
 <body>
 
-  <header th:replace="fragmentos/fragmentos-layout :: barra-navegacao"></header>
+ <header th:replace="fragmentos/fragmentos-layout :: barra-navegacao"></header>
 
-<main class="container">
-   <p></p>
+ <main class="container mt-5">
+
+
 
   <table class="table table-striped">
   <thead>
     <tr>
-
+      <th>Imagem</th>
       <th>SKU</th>
       <th>Nome</th>
       <th>Preço</th>
@@ -23,21 +24,25 @@
   </thead>
   <tbody>
     <tr th:each="produto : ${produtos}">
-      <td th:text="${produto.sku}"></td>
-      <td th:text="${produto.nome}"></td>
-      <td th:text="${produto.preco}"></td>
-      <td th:text="${produto.descricao}"></td>
-      <th><a th:href="@{/produto/edicao/{id}(id=${produto.id})}" class="btn btn-info btn-sm">Editar</a> </th>
+	    <td class="text-center">
+		  <img th:if="${produto.temImagem()==true}" data-th-src="@{|/${produto.detalhesImagem.urlImagem}|}" 
+		        alt="Foto do Livro" height="50px" />
+		        
+		  <img th:if="${produto.temImagem()==false}" data-th-src="@{/img/imagem-nao-disponivel.jpg}" 
+		        alt="Foto do Livro" height="50px" />
+		</td>
+        <td th:text="${produto.sku}"></td>
+	    <td th:text="${produto.nome}"></td>
+	    <td th:text="${produto.preco}"></td>
+	    <td th:text="${produto.descricao}"></td>
+	    <td><a th:href="@{/produto/edicao/{id}(id=${produto.id})}" class="btn btn-outline-info btn-sm">Editar</a> </td>
     </tr>
   
   </tbody>
-</table>
-
-
-
+ </table>
 </main>
 
- <th:block th:replace="fragmentos/fragmentos-scripts :: bootstrap"></th:block> 
+<th:block th:replace="fragmentos/fragmentos-scripts :: bootstrap"></th:block> 
 
 </body>
 </html>

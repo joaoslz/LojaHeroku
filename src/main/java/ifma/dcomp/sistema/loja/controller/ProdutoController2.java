@@ -29,13 +29,11 @@ import ifma.dcomp.sistema.loja.service.CategoriaService;
 import ifma.dcomp.sistema.loja.service.ImagemProdutoUploadService;
 import ifma.dcomp.sistema.loja.service.ProdutoService;
 
-@Controller
-@RequestMapping("/produto")
-public class ProdutoController {
+//@Controller
+//@RequestMapping("/produto")
+public class ProdutoController2 {
 	
-	private static final String LISTA_PRODUTO = "produto/lista-produto";
-	private static final String FORM_PRODUTO = "produto/form-produto";
-	private static final String PESQUISA_PRODUTOS = "produto/pesquisa-produtos";
+	private static final String FORM_PRODUTO = "form-produto";
 
 	@Autowired
 	private ProdutoService produtoService;
@@ -121,7 +119,7 @@ public class ProdutoController {
 	@GetMapping("/lista")
 	public ModelAndView listagem() {
 		
-		ModelAndView modelAndView = new ModelAndView(LISTA_PRODUTO);
+		ModelAndView modelAndView = new ModelAndView("lista-produto");
 		modelAndView.addObject("produtos", produtoService.todosProdutos() );
 		return modelAndView;
 		
@@ -131,7 +129,7 @@ public class ProdutoController {
 	@GetMapping("/pesquisa")
 	public ModelAndView pesquisar(ProdutoFilter produtoFilter, BindingResult result ) {
 
-		ModelAndView modelAndView = new ModelAndView(PESQUISA_PRODUTOS);
+		ModelAndView modelAndView = new ModelAndView("produto/pesquisa-produtos");
 //		mv.addObject("produtos", produtoService.todosProdutos() );
 		
 		modelAndView.addObject("produtos", produtoService.filtrar(produtoFilter) );

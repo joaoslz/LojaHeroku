@@ -6,6 +6,7 @@ import java.io.IOException;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -15,6 +16,7 @@ public class ImagemProdutoUploadService {
 	
 	private static final String PASTA_IMG_PRODUTOS = "img-produtos";
 
+	
 	
 	private MultipartFile multipartFile;
 	

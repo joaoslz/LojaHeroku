@@ -10,9 +10,9 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
 		@Override
 		public void addViewControllers(ViewControllerRegistry registry) {
 			
-			registry.addRedirectViewController("/", "/produto/pesquisa");
-			registry.addRedirectViewController("/produto/", "/produto/pesquisa");
-			registry.addRedirectViewController("/produto", "/produto/pesquisa");
+			registry.addRedirectViewController("/", "/produto/lista");
+			registry.addRedirectViewController("/produto/", "/produto/lista");
+			registry.addRedirectViewController("/produto", "/produto/lista");
 		}
 		
 		

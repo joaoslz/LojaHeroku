@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4" >
 
 <head th:fragment="cabecalho">
   <meta charset="UTF-8">
@@ -24,11 +25,14 @@
           <li class="nav-item active">
             <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item" sec:authorize="hasRole('ADMIN')" >
             <a class="nav-link" th:href="@{/produto/form}">Cadastrar</a>
           </li>
           <li class="nav-item">
             <a class="nav-link " th:href="@{/produto/lista}">Produtos</a>
+          </li>
+          <li class="nav-item" sec:authorize="hasRole('ADMIN')">
+            <a class="nav-link " th:href="@{/produto/pesquisa}">Pesquisa</a>
           </li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown" 
@@ -42,11 +46,26 @@
          
           </li>
         </ul>
-        <form class="form-inline my-2 my-md-0">
-          <input class="form-control mr-sm-2" type="text" placeholder="Search">
-          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-        </form>
-      </div>
+
+		<ul class="navbar-nav navbar-right">
+		  
+		  <li class="pt-2">
+			 <a href="#">Seja bem vindo: 
+			    <span sec:authentication="name"></span>
+			 </a>
+		  </li>
+		  <li>
+			<form class="form-inline my-2 my-md-0" 
+			      th:action="@{/logout}" method="POST">
+				<button type="submit" class="btn btn-link">
+					<i class="fa fa-window-close-o fa-2x" aria-hidden="true" title="Sair do Sistema"></i>
+				</button>
+				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" >
+				
+			</form>
+			</li>
+		</ul>
+			</div>
     </nav>
 	</header>
 
